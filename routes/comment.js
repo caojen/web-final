@@ -109,7 +109,7 @@ exports.getChangeCommentPageDetail = function(req, res) {
   let sql = `select * from Comment where BlogId='${BlogId}' and CommentId='${CommentId}'`;
   db.all(sql, (err, rows) => {
     if(err || rows.length === 0) {
-      res.json({ error: 'No Such Comment '});
+      res.json({ error: 'No Such Comment' });
     } else {
       res.json({
         BlogId,
