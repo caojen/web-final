@@ -1,0 +1,11 @@
+p
+  input(type='text' ng-model='form.username')
+  span {{ message.username }}
+p
+  input(type='password' ng-model='form.password')
+  span {{ message.password }}
+p
+  input(type='password' ng-model='form.confirm')
+  span {{ message.confirm }}
+p
+  button(ng-click="submitRegister()") Register

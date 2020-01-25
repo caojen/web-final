@@ -1,0 +1,32 @@
+section
+  h3 {{post.title}}
+  div {{post.text}}
+
+  h3 Comments
+  div(ng-repeat="comment in comments")
+    h3 {{comment.CommentId}}
+    h4 by {{comment.Username}} at {{comment.Time}}
+      span(ng-show="comment.IsHidden") (Hidden)
+    p {{comment.Content}}
+    p 
+      a(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}" ng-click="editComment(comment.CommentId)") Edit
+      | - 
+      a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="comment.IsHidden") UnHide
+      span(ng-show="comment.IsHidden") - 
+      a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="!comment.IsHidden") Hide
+      span(ng-show="!comment.IsHidden") -
+      a(href="javascript:;" ng-click="deleteComment(comment.CommentId)") Delete
+
+  div
+    p
+      button(ng-click="nextComment()") Next
+    p
+      button(ng-click="preComment()") Pre
+
+  div
+    h3 New Comment
+    textarea(ng-model="newComment", cols='50', rows='15')
+    p
+      button(ng-click="submitComment()") Submit
+    p {{ addCommentResult }}
+p {{ SubmitResult }}
