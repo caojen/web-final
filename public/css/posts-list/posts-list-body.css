@@ -1,0 +1,104 @@
+#posts-list {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#posts-th-user {
+  width: 10%;
+}
+
+#posts-th-time {
+  width: 15%
+}
+
+#posts-th-title {
+  width: 55%
+}
+
+#posts-th-operation {
+  width: 20%;
+}
+
+.post-user-icon, .post-box-user-icon {
+  width: 15px;
+  height: 15px;
+}
+
+
+/* border */
+#posts-list th {
+  border: 2px black solid;
+}
+
+#posts-list td {
+  border-bottom: 1px #eee solid;
+}
+
+#posts-list tr {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 50px;
+}
+
+/* operation a-link */
+.post-box-edit {
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  border: 2px rgb(0, 115, 255) solid;
+  color: rgb(0, 115, 255);
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 300ms;
+}
+
+.post-box-edit:hover {
+  color: white;
+  border: 2px rgb(0, 115, 255) solid;
+  background-color: rgb(0, 115, 255);
+}
+
+.post-box-delete {
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  border: 2px red solid;
+  color: red;
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 300ms;
+}
+
+.post-box-delete:hover {
+  color: white;
+  border: 2px red solid;
+  background-color: red;
+}
+
+.post-box-hide-unhide {
+  padding: 8px;
+  padding-left: 17px;
+  padding-right: 17px;
+
+  border: 2px purple solid;
+  color: purple;
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 300ms;
+}
+
+.post-box-hide-unhide:hover {
+  color: white;
+  border: 2px purple solid;
+  background-color: purple;
+}
+
+.post-box-hide-title {
+  color: purple;
+}

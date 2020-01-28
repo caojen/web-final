@@ -37,7 +37,7 @@ exports.posts = function (req, res) {
         data.push({
           ...rows[i],
           IsHidden: parseInt(rows[i].IsHidden),
-        });
+        })
       }
 
       res.json({
@@ -116,7 +116,7 @@ exports.editPost = function (req, res) {
   let { username, token, title, text } = req.body;
   blog_permission_require(username, token, id)
     .then(() => {
-      let sql_title = `update BlogTitle set Title='${title}' where BlogId='${id}'`;
+      let sql_title = `update BlogTitle set Title='${title}', Time=datetime('now', 'localtime') where BlogId='${id}'`;
       let sql_content = `update BlogContent set Content='${text}' where BlogId='${id}'`;
 
       let db = new sqlite.Database(dbpath);

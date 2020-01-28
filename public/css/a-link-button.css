@@ -1,0 +1,15 @@
+.a-link-button {
+  padding: 8px;
+  border: 2px black solid;
+  color: black;
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 200ms;
+}
+
+.a-link-button:hover {
+  background-color: black;
+  border: 2px yellow solid;
+  color: white;
+}

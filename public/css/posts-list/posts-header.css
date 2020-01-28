@@ -1,0 +1,20 @@
+#posts-count {
+  font-weight: bolder;
+}
+
+#post-header-fresh {
+  color: green;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  border: 2px green solid;
+  height: 300px;
+  border-radius: 150px;
+  transition: 200px;
+  background-color: white;
+}
+
+#post-header-fresh:hover {
+  color: white;
+  background-color: green;
+}

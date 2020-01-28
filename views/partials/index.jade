@@ -1,32 +1,56 @@
-div
-  div(ng-show="form.username")
-    ul
-      li Welcome! {{ form.username }}
-      li
-        a(href='/addPost') Add a new post
-      li
-        a(href="", ng-click="userLogout()") Logout
-  div(ng-show="!form.username")
+div(id="user-information")
+  div(ng-show="form.username", class="user-information-inner")
     ul
       li
-        a(href="/login") Sign In
+        a(href="", ng-click="userLogout()", class="a-link-button", id="logout-button") Logout
       li
-        a(href="/register") Sign Up
+        a(href='/addPost', class="a-link-button", id="new-post") Add a new post
+      li 
+        img(src="/image/user-icon.png", id="user-icon")
+        |  {{ form.username }}  | 
+        span(ng-show="form.isadmin") Admin |
 
-p There are {{ count }} posts totally
-div(ng-repeat='post in posts')
-  h3 {{post.BlogId}} {{post.Title}}
-    span(ng-show="post.IsHidden") (Hidden...)
-  h4 by {{post.Username}}
-  a(href='/readPost/{{post.BlogId}}') More
-  |  - 
-  a(href='/editPost/{{post.BlogId}}') Edit
-  |  - 
-  a(href='/deletePost/{{post.BlogId}}') Delete
-  |  -
-  a(href='javascript:;', ng-click="changeHidePost(post.BlogId)")
-    span(ng-show="post.IsHidden") UnHide
-    span(ng-show="!post.IsHidden") Hide
+  div(ng-show="!form.username", class="user-information-inner")
+    ul
+      li
+        a(href="/register", class="a-link-button") Sign Up
+      li
+        a(href="/login", class="a-link-button") Sign In
+
+p(id="posts-detail")
+  span(id="posts-count") {{ count }} 
+  | Post
+  span(ng-show="count > 1") s
+  |  Totally      
+  a(href="javascript:;", id="post-header-fresh", ng-click="getPosts()") Fresh
+
+table(id="posts-list")
+  tr
+    th(id="posts-th-user") User
+    th(id="posts-th-time") Time
+    th(id="posts-th-title") Title
+    th(id="posts-th-operation") Operation
+  tr(ng-repeat='post in posts', class="post-box")
+    td
+      span(class='post-box-user-icon')
+        img(src="/image/user-icon.png", class="post-user-icon")
+      span(class="post-box-user-name") {{post.Username}}
+    td
+      span(class='post-box-since') {{post.Time}}
+    td
+      a(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden") {{post.Title}}
+      span(class="post-box-hide-title" ng-show="post.IsHidden") Hide By Admin
+    td
+      span(class="post-box-operation")
+        a(href="/editPost/{{post.BlogId}}", ng-show="form.isadmin || form.username==post.Username", class="post-box-edit")
+          | Edit
+        a(href="/deletePost/{{post.BlogId}}", ng-show="form.isadmin || form.username==post.Username", class="post-box-delete")
+          | Delete
+        a(href="javascript:;" ng-show="form.isadmin", ng-click="changeHidePost(post.BlogId)", class="post-box-hide-unhide")
+          span(ng-show="!post.IsHidden")
+            | Hide
+          span(ng-show="post.IsHidden")
+            | UnHide
 
 p
   button(ng-click="getPosts(offset+1)") next

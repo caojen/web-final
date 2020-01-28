@@ -3,10 +3,11 @@ var sqlite = require('sqlite3');
 exports.login = function (req, res) {
     let { username, password } = req.body;
     password_required(username, password)
-        .then(token => {
+        .then(({ token, IsAdmin }) => {
             res.json({
                 username,
-                token
+                token,
+                IsAdmin,
             })
         })
         .catch(error => {
@@ -64,8 +65,9 @@ function password_required(username, password) {
                 reject('Server Error');
             } else {
                 if(res.length > 0) {
+                    let IsAdmin = res[0].IsAdmin;
                     token_create(username)
-                        .then(token => { resolve(token) })
+                        .then(token => { resolve({ token, IsAdmin }) })
                         .catch(() => { reject('Server Error') });
                 } else {
                     console.log(res, sql);

@@ -1,0 +1,10 @@
+/* html element */
+@import url('./global-element.css');
+
+/* for classes */
+@import url('./a-link-button.css');
+
+/* specific id-element */
+@import url('./layout-header.css');
+@import url('./user-information-control.css');
+@import url('./posts-list.css');

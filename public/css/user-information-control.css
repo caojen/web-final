@@ -1,0 +1,24 @@
+#user-information {
+  text-align: right;
+}
+
+.user-information-inner li {
+  float: right;
+  padding-right: 10px;
+}
+
+#logout-button:hover {
+  background-color: red;
+  border: 2px red solid;
+}
+
+#new-post:hover {
+  background-color: rgb(108, 247, 119);
+  border: 2px rgb(108, 247, 119) solid;
+  color: green;
+}
+
+#user-icon {
+  width: 15px;
+  height: 15px;
+}

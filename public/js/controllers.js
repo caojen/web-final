@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-const PageCount = 2;
+const PageCount = 20;
 
 function IndexCtrl($scope, $http) {
   $scope.offset = 1;
@@ -30,6 +30,7 @@ function IndexCtrl($scope, $http) {
 
   if(username) {
     $scope.form.username = username;
+    $scope.form.isadmin = parseInt(getCookie('isadmin'));
   }
 
   $scope.userLogout = function() {
@@ -138,7 +139,6 @@ function ReadPostCtrl($scope, $http, $routeParams) {
   }
 
   $scope.nextComment = function() {
-    console.log($scope.comments)
     if($scope.comments.length) {
       $scope.commentOffset++;
       getAllComments();
@@ -210,6 +210,7 @@ function LoginCtrl($scope, $http, $location) {
         if(!data.error) {
           setCookie('username', data.username);
           setCookie('token', data.token);
+          setCookie('isadmin', data.IsAdmin);
           $location.url('/');
         } else {
           console.log(data.error);

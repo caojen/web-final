@@ -2,12 +2,10 @@ extends layout
 
 block body
   div
-    h2 My Blog
-    ul
-      li
-        a(href='/') Home
+    h2(id="web-head") 
+      a(href="/") My Blog
 
-    div(ng-view)
+    div(ng-view, id="ng-view")
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
