@@ -171,7 +171,7 @@ exports.changeComment = function(req, res) {
           res.json({ error: 'No Such Comment' });
           db.close();
         } else {
-          let sql_update = `update Comment set Content='${comment}' where BlogId='${BlogId}' and CommentId='${CommentId}'`;
+          let sql_update = `update Comment set Content='${comment}', Time=datetime('now', 'localtime') where BlogId='${BlogId}' and CommentId='${CommentId}'`;
           db.run(sql_update, (err) => {
             db.close();
           })
