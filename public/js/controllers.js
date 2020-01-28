@@ -31,6 +31,9 @@ function IndexCtrl($scope, $http) {
   }
 
   $scope.$watch('toPage', function(newVal, oldVal) {
+    if(newVal == '') {
+      return;
+    }
     if(/^[1-9]+[0-9]*$/.test(newVal) === false) {
       $scope.toPage = oldVal;
     }
