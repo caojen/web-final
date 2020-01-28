@@ -34,7 +34,7 @@ table(id="posts-list")
     td
       span(class='post-box-user-icon')
         img(src="/image/user-icon.png", class="post-user-icon")
-      span(class="post-box-user-name") {{post.Username}}
+      span(class="post-box-user-name")  {{post.Username}}
     td
       span(class='post-box-since') {{post.Time}}
     td
@@ -52,15 +52,10 @@ table(id="posts-list")
           span(ng-show="post.IsHidden")
             | UnHide
 
-//- div#pagination
-//-   p
-//-     button(ng-click="getPosts(offset+1)") Next
-//-   p
-//-     button(ng-click="getPosts(offset-1)") Previous
-
 div#pagination
   a#pagination-next(href="javascript:;", ng-click="getPosts(offset+1)") Next 
   input#pagination-input(ng-model="toPage")
   |  / {{totalPage}} 
   a#pagination-previous(href="javascript:;", ng-click="getPosts(offset-1)") Previous
-  a#pagination-goto(href="javascript:;", ng-click="getPost(toPage)", ng-show="toPage != offset") GOTO
+  a#pagination-goto(href="javascript:;", ng-click="getPosts(toPage)", ng-show="!!toPage && toPage != offset") GOTO
+  a#pagination-reset(href="javascript:;", ng-click="resetToPage()", ng-show="!!toPage && toPage != offset") RESET

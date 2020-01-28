@@ -31,6 +31,9 @@ function IndexCtrl($scope, $http) {
   }
 
   $scope.$watch('toPage', function(newVal, oldVal) {
+    if(/^[1-9]+[0-9]*$/.test(newVal) === false) {
+      $scope.toPage = oldVal;
+    }
     if(newVal > $scope.totalPage) {
       $scope.toPage = $scope.totalPage;
     } else if(newVal < 1) {
@@ -74,6 +77,10 @@ function IndexCtrl($scope, $http) {
           }
         })
     }
+  }
+
+  $scope.resetToPage = function() {
+    $scope.toPage = $scope.offset;
   }
 }
 

@@ -28,3 +28,39 @@
   width: 30px;
   text-align: center;
 }
+
+#pagination-goto {
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  border: 2px green solid;
+  color: green;
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 300ms;
+}
+
+#pagination-goto:hover {
+  color: white;
+  background-color: green;
+}
+
+#pagination-reset {
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  border: 2px red solid;
+  color: red;
+  background-color: white;
+  height: 200px;
+  border-radius: 100px;
+  transition: 300ms;
+}
+
+#pagination-reset:hover {
+  color: white;
+  background-color: red;
+}
