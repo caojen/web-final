@@ -7,21 +7,36 @@ const PageCount = 20;
 function IndexCtrl($scope, $http) {
   $scope.offset = 1;
   $scope.count = 0;
-
   $scope.getPosts = function(offset) {
     if(offset < 0) {
       offset = 1;
-    } else if(offset > $scope.offset && $scope.posts.length == 0) {
+    } else if(offset > $scope.offset && $scope.posts.length === 0) {
       return;
     }
+    let pre_offset = $scope.offset;
 
     $scope.offset = offset || $scope.offset;
     $http.get(`/api/posts?pageCount=${PageCount}&offset=${$scope.offset-1}`).
     success(function(data, status, headers, config) {
-      $scope.posts = data.data.sort((a, b) => a.BlogId-b.BlogId);
-      $scope.count = data.count;
+      if(data.data.length === 0) {
+        $scope.offset = pre_offset;
+      } else {
+        $scope.posts = data.data.sort((a, b) => a.BlogId-b.BlogId);
+        $scope.count = data.count;
+
+        $scope.toPage = $scope.offset;
+        $scope.totalPage = Math.ceil(data.count / PageCount);
+      }
     });
   }
+
+  $scope.$watch('toPage', function(newVal, oldVal) {
+    if(newVal > $scope.totalPage) {
+      $scope.toPage = $scope.totalPage;
+    } else if(newVal < 1) {
+      $scope.toPage = 1;
+    }
+  })
 
   $scope.getPosts();
 
