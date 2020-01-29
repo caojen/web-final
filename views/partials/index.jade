@@ -39,7 +39,7 @@ table(id="posts-list")
     td
       span(class='post-box-since') {{post.Time}}
     td
-      a(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden") {{post.Title}}
+      a.post-box-post-title(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden") {{post.Title}}
       span(class="post-box-hide-title" ng-show="post.IsHidden") Hide By Admin
     td
       span(class="post-box-operation")
