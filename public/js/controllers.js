@@ -201,7 +201,8 @@ function EditPostCtrl($scope, $http, $location, $routeParams) {
 function DeletePostCtrl($scope, $http, $location, $routeParams) {
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
-      $scope.post = data.post;
+      console.log(data);
+      $scope.post = data;
     });
   $scope.deleteResult = '';
   $scope.deletePost = function () {

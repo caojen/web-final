@@ -1,9 +1,20 @@
-h2 {{post.title}}
-div {{post.text}}
-p
-  | Are you sure you want to delete this post? 
-  button(ng-click='deletePost()') Yes
-  |  - 
-  button(ng-click='home()') No thanks
+div#delete-post
+  table
+    tr
+      th#delete-post-username Username
+      th#delete-post-time Last Submit Time
+    tr
+      td {{post.username}}
+      td {{post.time}}
 
-p {{ deleteResult }}
+  h2#delete-post-title {{post.title}}
+  div#delete-post-text {{post.text}}
+
+  div#delete-post-control
+    p
+      span#delete-post-control-message Are you sure you want to delete this post? - 
+      a#delete-post-ok(href="javascript:;", ng-click='deletePost()') Delete
+      |  -  
+      a#delete-post-cancel(href="javascript:;", ng-click='home()') Cancel
+
+    p#delete-post-result {{ deleteResult }}

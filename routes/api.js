@@ -55,15 +55,17 @@ exports.posts = function (req, res) {
 exports.post = function (req, res) {
   var id = req.params.id;
   let db = new sqlite.Database(dbpath);
-  let sql_title = `select Title from BlogTitle where BlogId='${id}'`;
+  let sql_info = `select * from BlogTitle where BlogId='${id}'`;
   let sql_content = `select Content from BlogContent where BlogId='${id}'`;
 
-  db.all(sql_title, (err, rows) => {
+  db.all(sql_info, (err, rows) => {
     if (err || rows.length == 0) {
       res.json({ message: 'No Such Blog' });
       db.close();
     } else {
       let title = rows[0].Title;
+      let time = rows[0].Time;
+      let username = rows[0].Username;
       db.all(sql_content, (err, rows) => {
         if (err || rows.length == 0) {
           res.json({ message: 'No Such Blog' });
@@ -71,6 +73,8 @@ exports.post = function (req, res) {
           let text = rows[0].Content;
           res.json({
             title,
+            time,
+            username,
             text,
           })
         }

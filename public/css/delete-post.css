@@ -1,0 +1,77 @@
+#delete-post {
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+#delete-post table {
+  margin: 0 auto;
+}
+
+#delete-post th, #delete-post td {
+  text-align: center;
+}
+
+#delete-post th {
+  border: 2px black solid;
+}
+
+#delete-post-username {
+  width: 15%;
+}
+
+#delete-post-time {
+  width: 30%;
+}
+
+#delete-post td {
+  border-bottom: 1px #eee solid;
+}
+
+#delete-post-title {
+  text-align: center;
+}
+
+#delete-post-control {
+  position: fixed;
+  margin: 0 auto;
+  bottom: 50px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px rgb(0, 149, 255) dashed;
+}
+
+#delete-post-ok, #delete-post-cancel {
+  color: red;
+  border: 2px red solid;
+  height: 100px;
+  border-radius: 50px;
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: 200ms;
+}
+
+#delete-post-ok:hover {
+  background-color: red;
+  color: white;
+}
+
+#delete-post-cancel {
+  margin-left: 2px;
+  color: green;
+  border: 2px green solid;
+}
+
+#delete-post-cancel:hover {
+  background-color: green;
+  color: white;
+}
+
+#delete-post-control-message {
+  color: purple;
+}
+
+#delete-post-result {
+  color: red;
+}
