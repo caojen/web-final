@@ -1,0 +1,65 @@
+#login {
+  text-align: center;
+  margin-top: 100px;
+}
+
+#login-table {
+  margin: 0 auto;
+}
+
+#a-operation {
+  padding-top: 20px;
+  text-align: right;
+}
+
+#a-login, #a-register, #a-back {
+  border: 2px rgb(0, 115, 255) solid;
+  height: 200px;
+  border-radius: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: rgb(0, 115, 255);
+  transition: 200ms;
+}
+
+#a-back {
+  border: 2px red solid;
+  color: red;
+  margin-right: 30px;
+}
+
+#a-back:hover {
+  color: white;
+  background-color: red;
+}
+
+#a-login {
+  color: green;
+  border: 2px green solid;
+  margin-right:30px;
+}
+
+#a-register {
+  border: 2px purple solid;
+  color: purple;
+}
+
+#a-login:hover {
+  border: 2px green solid;
+  background-color: green;
+  color: white;
+}
+
+#a-register:hover {
+  border: 2px purple solid;
+  background-color: purple;
+  color: white;
+}
+
+#login-error-message, .style-control {
+  height: 22px;
+  color: red;
+  padding-top: 4px;
+}

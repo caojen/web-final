@@ -70,7 +70,6 @@ function password_required(username, password) {
                         .then(token => { resolve({ token, IsAdmin }) })
                         .catch(() => { reject('Server Error') });
                 } else {
-                    console.log(res, sql);
                     reject('Username not exists or Password error');
                 }
             }

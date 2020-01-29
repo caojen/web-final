@@ -1,6 +1,28 @@
-p
-  input(type="text" ng-model="form.username")
-p
-  input(type="password" ng-model="form.password")
-p
-  button(ng-click="submitLogin()") Login
+div#login
+  h3 Sign IN
+  table#login-table
+    tr
+      td
+        label(for="username") Username:
+      td
+        input(type="text", name='username', ng-model="form.username", autocomplete='off')
+    tr
+      td
+      td
+        div.style-control
+    tr
+      td
+        label(for="password") Password:
+      td
+        input(type="password", name='password', ng-model="form.password")
+    tr
+      td
+      td
+        div#login-error-message {{form.errorMessage}}
+    tr
+      td
+      td
+        div#a-operation
+          a#a-back(href="/") Back
+          a#a-login(href="javascript:;", ng-click="submitLogin()") Login
+          a#a-register(href="/register") Register

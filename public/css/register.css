@@ -1,0 +1,18 @@
+.register-error-style {
+  height: 30px;
+  color: red;
+  font-size: 15px;
+  text-align: right;
+}
+
+#register {
+  padding-top: 50px;
+}
+
+#register-table {
+  margin: 0 auto;
+}
+
+#register {
+  text-align: center;
+}

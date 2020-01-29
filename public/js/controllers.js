@@ -104,10 +104,10 @@ function AddPostCtrl($scope, $http, $location) {
 function ReadPostCtrl($scope, $http, $routeParams) {
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
-      $scope.post = { data, BlogId: $routeParams.id }
+      $scope.post = { ...data, BlogId: $routeParams.id }
     });
   
-  const commentPageCount = 5;
+  const commentPageCount = 20;
   $scope.commentOffset = 0;
 
   let getAllComments = function() {
@@ -238,6 +238,7 @@ function LoginCtrl($scope, $http, $location) {
           setCookie('isadmin', data.IsAdmin);
           $location.url('/');
         } else {
+          $scope.form.errorMessage = data.error;
           console.log(data.error);
         }
       })
@@ -251,22 +252,22 @@ function RegisterCtrl($scope, $http, $location) {
   let checkValidInput = function(username, password, confirm) {
     return new Promise((resolve, reject) => {
       let res = {};
-      if(!(username.length < 18 && username.length > 5 && /([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|_)+/.test(username))) {
+      if(!username || !(username.length < 18 && username.length > 5 && /([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|_)+/.test(username))) {
         res = {
           ...res,
-          username: 'Username.length should in [6,17] and should begin with alpha but only contain with alpha, number and "_"' 
+          username: '6~17 digits, alpha, number, ., _ only' 
         };
       }
-      if(!(password.length < 18 && password.length > 5 && /([a-z]|[A-Z]|[0-9]|.|_)+/.test(password))) {
+      if(!password || !(password.length < 18 && password.length > 5 && /([a-z]|[A-Z]|[0-9]|.|_)+/.test(password))) {
         res = {
           ...res,
-          password: 'Password.length should in [6, 17] and should only contain alpha, number, ".", and "_"'
+          password: '6~17 digits, alpha, number, ., _ only'
         }
       }
-      if(password !== confirm) {
+      if(!confirm || password !== confirm) {
         res = {
           ...res,
-          confirm: 'The Password is not the same'
+          confirm: 'The input is not the same'
         }
       }
       if(Object.keys(res).length === 0) {
@@ -279,7 +280,6 @@ function RegisterCtrl($scope, $http, $location) {
 
   $scope.submitRegister = function() {
     let { username, password, confirm } = $scope.form;
-    
     checkValidInput(username, password, confirm)
       .then(() => {
         $http.post('/user/register', { username, password })
@@ -287,12 +287,13 @@ function RegisterCtrl($scope, $http, $location) {
           if(res.data.error) {
             $scope.message = { username: res.data.error };
           } else {
-            $location.url('/');
+            $location.url('/login');
           }
         })
       })
       .catch(res => {
         $scope.message = res;
+        $scope.$apply();
       }) 
   }
 }

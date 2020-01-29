@@ -25,7 +25,9 @@
 }
 
 #pagination-input {
-  width: 30px;
+  width: 30px !important;
+  height: 20px !important;
+  margin-left: 5px;
   text-align: center;
 }
 
