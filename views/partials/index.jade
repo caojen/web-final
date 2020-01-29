@@ -9,7 +9,7 @@ div(id="user-information")
         img(src="/image/user-icon.png", id="user-icon")
         |  {{ form.username }}  | 
         span#admin-style(ng-show="form.isadmin") Admin
-        |  |
+        span(ng-show="form.isadmin")   |  
 
   div(ng-show="!form.username", class="user-information-inner")
     ul
