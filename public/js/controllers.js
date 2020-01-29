@@ -187,15 +187,17 @@ function EditPostCtrl($scope, $http, $location, $routeParams) {
     });
 
   $scope.editPost = function () {
-    $http.put('/api/post/' + $routeParams.id, {
-      ...$scope.form,
-      username: getCookie('username'),
-      token: getCookie('token'),
-    }).
-      success(function(data) {
-        $location.url('/readPost/' + $routeParams.id);
-      });
-  };
+    if(!!$scope.form.title && !!$scope.form.text) {
+      $http.put('/api/post/' + $routeParams.id, {
+        ...$scope.form,
+        username: getCookie('username'),
+        token: getCookie('token'),
+      }).
+        success(function(data) {
+          $location.url('/readPost/' + $routeParams.id);
+        });
+    };
+  }
 }
 
 function DeletePostCtrl($scope, $http, $location, $routeParams) {

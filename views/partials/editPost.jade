@@ -1,7 +1,15 @@
-h2 Edit post
-label(for='title') Title: 
-input(ng-model='form.title')
-p Body:
-textarea(ng-model='form.text', cols='50', rows='15')
-p
-  button(ng-click='editPost()') Edit Post
+div#edit-post
+  table#edit-post-table
+    tr
+      th#edit-post-username Username
+      th#edit-post-time Last Submit Time
+    tr
+      td {{form.username}}
+      td {{form.time}}
+  
+  input#edit-post-title(ng-model='form.title', placeholder="Input The Title")
+  p#edit-post-body
+    textarea(ng-model='form.text')
+  p
+    a#edit-post-submit(href="javascript:;", ng-click='editPost()') Submit Post
+    a#edit-post-back(href='/') Back

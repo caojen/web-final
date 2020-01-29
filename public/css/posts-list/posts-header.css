@@ -10,7 +10,7 @@
   border: 2px green solid;
   height: 300px;
   border-radius: 150px;
-  transition: 200px;
+  transition: 200ms;
   background-color: white;
 }
 
