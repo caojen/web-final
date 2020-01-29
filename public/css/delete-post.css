@@ -75,3 +75,10 @@
 #delete-post-result {
   color: red;
 }
+
+#delete-post-text {
+  border: 1px rgb(255, 0, 55) dashed;
+  width: 70%;
+  min-height: 300px;
+  margin: 0 auto;
+}
