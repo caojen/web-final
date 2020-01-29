@@ -88,16 +88,30 @@ function IndexCtrl($scope, $http) {
 }
 
 function AddPostCtrl($scope, $http, $location) {
-  $scope.form = {};
+  let date = new Date();
+  $scope.form = {
+    username: getCookie('username'),
+    time: date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()),
+  };
+
+  setInterval(() => {
+    let date = new Date();
+    let res = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    $scope.form.time = res;
+    $scope.$apply();
+  }, 500);
+
   $scope.submitPost = function () {
-    $http.post('/api/post', { 
-      username: getCookie('username'),
-      token: getCookie('token'),
-      ...$scope.form,
-    }).
-      success(function(data) {
-        $location.path('/');
-      });
+    if(!!$scope.form.title && !!$scope.form.text) {
+      $http.post('/api/post', { 
+        username: getCookie('username'),
+        token: getCookie('token'),
+        ...$scope.form,
+      }).
+        success(function(data) {
+          $location.path('/');
+        });
+    }
   };
 }
 

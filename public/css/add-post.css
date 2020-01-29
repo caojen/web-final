@@ -1,0 +1,85 @@
+#add-post {
+  text-align: center;
+  height: 500px;
+  padding-top: 20px;
+}
+
+#add-post th {
+  border: 2px black solid;
+}
+
+#add-post td {
+  border-bottom: 1px #eee solid;
+}
+
+#add-post-table {
+  margin: 0 auto;
+}
+
+#add-post-username {
+  width: 20%;
+}
+
+#add-post-time {
+  width: 30%;
+}
+
+#add-post-title {
+  text-align: center;
+  width: 760px;
+  margin-top: 20px;
+}
+
+#add-post-body {
+  height: 500px;
+}
+
+#add-post-body textarea {
+  outline: none;
+  font-size: 18px;
+  width: 800px;
+  height: 100%;
+  resize: none;
+  border: 1px rgb(0, 149, 255) solid;
+}
+
+#add-post-body textarea:focus {
+  border: 1px orange solid;
+}
+
+#add-post-submit, #add-post-back {
+  border: rgb(81, 0, 255) 2px solid;
+  background-color: white;
+  color: rgb(81, 0, 255);
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  height: 20px;
+  border-radius: 10px;
+  transition: 200ms;
+
+  position: fixed;
+  bottom: 20%;
+  right: 10%;
+
+  width: 100px;
+}
+
+#add-post-submit:hover, #add-post-back:hover {
+  border: green 2px solid;
+  background-color: green;
+  color: white;
+}
+
+#add-post-back {
+  color: red;
+  border: 2px red solid;
+  bottom: 10%;
+  
+}
+
+#add-post-back:hover {
+  background-color: red;
+  color: white;
+  border: 2px red solid;
+}

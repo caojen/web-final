@@ -1,7 +1,14 @@
-h2 Write a new post
-label(for='title') Title: 
-input(ng-model='form.title')
-p Body:
-textarea(ng-model='form.text', cols='50', rows='15')
-p
-  button(ng-click='submitPost()') Submit Post
+div#add-post
+  table#add-post-table
+    tr
+      th#add-post-username Username
+      th#add-post-time Current Time
+    tr
+      td {{form.username}}
+      td {{form.time}}
+  input#add-post-title(ng-model='form.title', placeholder="Input The Title")
+  p#add-post-body
+    textarea(ng-model='form.text')
+  p
+    a#add-post-submit(href="javascript:;", ng-click='submitPost()') Submit Post
+    a#add-post-back(href='/') Back
