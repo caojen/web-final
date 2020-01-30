@@ -5,7 +5,9 @@ div#read-post
       th#read-post-time Last Submit Time
         img.static-icons(src="/image/static-icons/time.png")
     tr
-      td {{post.username}}
+      td 
+        img.static-icons(src='/image/static-icons/user.png')
+        | {{post.username}}
       td {{post.time}}
 
   h2#read-post-title {{post.title}}

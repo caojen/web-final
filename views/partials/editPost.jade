@@ -5,7 +5,9 @@ div#edit-post
       th#edit-post-time Last Submit Time
         img.static-icons(src="/image/static-icons/time.png")
     tr
-      td {{form.username}}
+      td
+        img.static-icons(src='/image/static-icons/user.png')
+        | {{form.username}}
       td {{form.time}}
   
   input#edit-post-title(ng-model='form.title', placeholder="Title")

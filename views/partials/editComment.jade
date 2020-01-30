@@ -7,7 +7,9 @@ div#edit-comment
         img.static-icons(src="/image/static-icons/time.png")
       th#edit-comment-status Status
     tr
-      td {{ Username }}
+      td
+        img.static-icons(src='/image/static-icons/user.png')
+        | {{ Username }}
       td {{ Time }}
       td 
         span(ng-show="IsHidden") Hide
