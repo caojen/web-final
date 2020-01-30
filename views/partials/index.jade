@@ -6,7 +6,7 @@ div(id="user-information")
       li
         a(href='/addPost', class="a-link-button", id="new-post") Add a new post
       li 
-        img(src="/image/user-icon.png", id="user-icon")
+        img(src="/image/static-icons/user.png", id="user-icon")
         |  {{ form.username }}  | 
         span#admin-style(ng-show="form.isadmin") Admin
         span(ng-show="form.isadmin")   |  
@@ -34,15 +34,17 @@ table(id="posts-list")
   tr(ng-repeat='post in posts', class="post-box")
     td
       span(class='post-box-user-icon')
-        img(src="/image/user-icon.png", class="post-user-icon")
+        img(src="/image/static-icons/user.png", class="post-user-icon")
       span(class="post-box-user-name")  {{post.Username}}
     td
       span(class='post-box-since') {{post.Time}}
     td
-      a.post-box-post-title(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden") {{post.Title}}
+      a.post-box-post-title(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden")
+        | {{post.Title}}
+        img.status-icons(src="/image/static-icons/view.png")
       span(class="post-box-hide-title" ng-show="post.IsHidden")
         | Hide By Admin
-        img.view-off(src="/image/status-icons/view_off.png")
+        img.status-icons(src="/image/static-icons/view_off.png")
     td
       span(class="post-box-operation")
         a(href="/editPost/{{post.BlogId}}", ng-show="form.isadmin || form.username==post.Username", class="post-box-edit")

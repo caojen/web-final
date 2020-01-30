@@ -15,7 +15,7 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
   div.read-post-comment-box(ng-repeat='comment in comments')
     div.read-post-comment-box-user-info
       span.read-post-comment-box-user-icon
-        img(src='/image/user-icon.png')
+        img(src='/image/static-icons/user.png')
       span.read-post-comment-box-user-name
         | {{ comment.Username }}
       span.read-post-comment-box-user-time
@@ -37,7 +37,7 @@ div#read-post-new-comment
   h4 Add New Comment
   div#read-post-add-comment-user-info
     span#read-post-add-comment-user-icon
-      img(src="/image/user-icon.png")
+      img(src="/image/static-icons/user.png")
     span#read-post-add-comment-user-name
       | {{ username }}
     span#read-post-add-comment-user-time
