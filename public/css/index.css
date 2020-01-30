@@ -3,6 +3,7 @@
 
 /* for classes */
 @import url('./a-link-button.css');
+@import url('./global-icon.css');
 
 /* specific id-element */
 @import url('./layout-header.css');
