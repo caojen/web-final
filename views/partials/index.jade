@@ -42,7 +42,7 @@ table(id="posts-list")
       a.post-box-post-title(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden") {{post.Title}}
       span(class="post-box-hide-title" ng-show="post.IsHidden")
         | Hide By Admin
-        img.view-off(src="/image/icons/view_off.png")
+        img.view-off(src="/image/status-icons/view_off.png")
     td
       span(class="post-box-operation")
         a(href="/editPost/{{post.BlogId}}", ng-show="form.isadmin || form.username==post.Username", class="post-box-edit")
