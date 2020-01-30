@@ -30,7 +30,8 @@ table(id="posts-list")
     th(id="posts-th-user") Username
     th(id="posts-th-time") Last Submission Time
     th(id="posts-th-title") Post Title
-    th(id="posts-th-operation") Operation
+    th(id="posts-th-operation", title="Operation")
+      img.static-icons(src="/image/static-icons/operation.png")
   tr(ng-repeat='post in posts', class="post-box")
     td
       span(class='post-box-user-icon')
@@ -41,10 +42,10 @@ table(id="posts-list")
     td
       a.post-box-post-title(href="/readPost/{{post.BlogId}}", class="post-box-post-title", ng-show="!post.IsHidden")
         | {{post.Title}}
-        img.status-icons(src="/image/static-icons/view.png")
+        img.static-icons(src="/image/static-icons/view.png")
       span(class="post-box-hide-title" ng-show="post.IsHidden")
         | Hide By Admin
-        img.status-icons(src="/image/static-icons/view_off.png")
+        img.static-icons(src="/image/static-icons/view_off.png")
     td
       span(class="post-box-operation")
         a(href="/editPost/{{post.BlogId}}", ng-show="form.isadmin || form.username==post.Username", class="post-box-edit")

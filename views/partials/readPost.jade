@@ -3,6 +3,7 @@ div#read-post
     tr
       th#read-post-username Username
       th#read-post-time Last Submit Time
+        img.static-icons(src="/image/static-icons/time.png")
     tr
       td {{post.username}}
       td {{post.time}}
@@ -20,6 +21,7 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
         | {{ comment.Username }}
       span.read-post-comment-box-user-time
         | {{ comment.Time }}
+        img.static-icons(src="/image/static-icons/time_green.png")
     div.read-post-comment-box-hidden(ng-show="comment.IsHidden")
       | Hidden By Admin
     div.read-post-comment-box-unhide(ng-show="!comment.IsHidden")
@@ -42,6 +44,7 @@ div#read-post-new-comment
       | {{ username }}
     span#read-post-add-comment-user-time
       | {{ time }}
+      img.static-icons(src="/image/static-icons/time_red.png")
   textarea(ng-model="newComment")
   div#read-post-submit-comment-control
     a#read-post-submit-comment(href="javascript:;", ng-click="submitComment()") Submit
