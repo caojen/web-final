@@ -1,12 +1,33 @@
-h3 Edit Comment
-h4 By {{ Username }}
-h5 First Comment: {{ Time }}
-h5 Status: 
-  span(ng-show="IsHidden") Hidden
-  span(ng-show="!IsHidden") Show
-p Last Comment:
-  p {{ Comment }}
-p new Comment:
-textarea(ng-model="newComment", cols='50', rows='15')
-p 
-  button(ng-click="SubmitComment()") Submit
+//- h3 Edit Comment
+//- h4 By {{ Username }}
+//- h5 First Comment: {{ Time }}
+//- h5 Status: 
+//-   span(ng-show="IsHidden") Hidden
+//-   span(ng-show="!IsHidden") Show
+//- p Last Comment:
+//-   p {{ Comment }}
+//- p new Comment:
+//- textarea(ng-model="newComment", cols='50', rows='15')
+//- p 
+//-   button(ng-click="SubmitComment()") Submit
+
+div#edit-comment
+  h3#edit-comment-title Edit Comment
+  table#edit-comment-table
+    tr
+      th#edit-comment-username Username
+      th#edit-comment-time First Submit Time
+      th#edit-comment-status Status
+    tr
+      td {{ Username }}
+      td {{ Time }}
+      td 
+        span(ng-show="IsHidden") Hide
+        span(ng-show="!IsHidden") Show
+  div#last-comment
+    h4#last-comment-title Last Comment
+      p#last-comment-text {{ Comment }}
+  div#new-comment
+    h4#new-comment-title New Comment
+    textarea(ng-model="newComment")
+    a#new-comment-submit(href="javascript:;", ng-click="SubmitComment()") Submit
