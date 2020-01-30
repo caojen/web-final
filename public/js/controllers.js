@@ -4,6 +4,11 @@
 
 const PageCount = 20;
 
+function getTime() {
+  let date = new Date();
+  return date.getFullYear() + '-' + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + '-' + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+}
+
 function IndexCtrl($scope, $http) {
   $scope.offset = 1;
   $scope.count = 0;
@@ -91,13 +96,11 @@ function AddPostCtrl($scope, $http, $location) {
   let date = new Date();
   $scope.form = {
     username: getCookie('username'),
-    time: date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()),
+    time: getTime(),
   };
 
   setInterval(() => {
-    let date = new Date();
-    let res = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
-    $scope.form.time = res;
+    $scope.form.time = getTime();
     $scope.$apply();
   }, 500);
 
@@ -116,6 +119,16 @@ function AddPostCtrl($scope, $http, $location) {
 }
 
 function ReadPostCtrl($scope, $http, $routeParams) {
+  $scope.username = getCookie('username');
+  $scope.isadmin = getCookie('isadmin');
+  
+  $scope.time = getTime();
+
+  setInterval(() => {
+    $scope.time = getTime();
+    $scope.$apply();
+  }, 500);
+
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
       $scope.post = { ...data, BlogId: $routeParams.id }
@@ -128,6 +141,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
   
     $http.get('/api/comments/' + $routeParams.id + '?pageCount=' + commentPageCount + '&offset=' + $scope.commentOffset).
       success(function(data) {
+        $scope.commentsCount = data.count;
         $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
       })
 
@@ -152,8 +166,14 @@ function ReadPostCtrl($scope, $http, $routeParams) {
             getAllComments();
           }
         });
+    } else {
+      $scope.addCommentResult = 'Please Enter Some Comments';
     }
   }
+
+  $scope.$watch('newComment', () => {
+    $scope.addCommentResult = '';
+  })
 
   $scope.changeHideStatus = function(commentId) {
     $http.put('/api/comment/hide/'+$routeParams.id+"/"+commentId, {
@@ -356,17 +376,21 @@ function EditCommentCtrl($scope, $http, $location, $routeParams) {
     })
   
   $scope.SubmitComment = function() {
-    $http.post(`/api/comment/${$scope.BlogId}/${$scope.CommentId}`, {
-      username: getCookie('username'),
-      token: getCookie('token'),
-      comment: $scope.newComment,
-    })
-      .success(data => {
-        if(data.error) {
-          $scope.SubmitResult = data.error;
-        } else {
-          $location.url('/readPost/' + $scope.BlogId);
-        }
+    if(!!$scope.newComment) {
+      $http.post(`/api/comment/${$scope.BlogId}/${$scope.CommentId}`, {
+        username: getCookie('username'),
+        token: getCookie('token'),
+        comment: $scope.newComment,
       })
+        .success(data => {
+          if(data.error) {
+            $scope.SubmitResult = data.error;
+          } else {
+            $location.url('/readPost/' + $scope.BlogId);
+          }
+        })
+    } else {
+      $scope.SubmitResult = 'Please Enter Some Comments';
+    }
   }
 }

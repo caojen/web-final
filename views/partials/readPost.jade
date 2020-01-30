@@ -1,32 +1,76 @@
-section
-  h3 {{post.title}}
-  div {{post.text}}
+div#read-post
+  table
+    tr
+      th#read-post-username Username
+      th#read-post-time Last Submit Time
+    tr
+      td {{post.username}}
+      td {{post.time}}
 
-  h3 Comments
-  div(ng-repeat="comment in comments")
-    h3 {{comment.CommentId}}
-    h4 by {{comment.Username}} at {{comment.Time}}
-      span(ng-show="comment.IsHidden") (Hidden)
-    p {{comment.Content}}
-    p 
-      a(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}" ng-click="editComment(comment.CommentId)") Edit
-      | - 
-      a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="comment.IsHidden") UnHide
-      span(ng-show="comment.IsHidden") - 
-      a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="!comment.IsHidden") Hide
-      span(ng-show="!comment.IsHidden") -
-      a(href="javascript:;" ng-click="deleteComment(comment.CommentId)") Delete
+  h2#read-post-title {{post.title}}
+  div#read-post-text {{post.text}}
 
-  div
-    p
-      button(ng-click="nextComment()") Next
-    p
-      button(ng-click="preComment()") Pre
+//-   h3 Comments
+//-   div(ng-repeat="comment in comments")
+//-     h3 {{comment.CommentId}}
+//-     h4 by {{comment.Username}} at {{comment.Time}}
+//-       span(ng-show="comment.IsHidden") (Hidden)
+//-     p {{comment.Content}}
+//-     p 
+//-       a(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}" ng-click="") Edit
+//-       | - 
+//-       a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="comment.IsHidden") UnHide
+//-       span(ng-show="comment.IsHidden") - 
+//-       a(href="javascript:;" ng-click="changeHideStatus(comment.CommentId)" ng-show="!comment.IsHidden") Hide
+//-       span(ng-show="!comment.IsHidden") -
+//-       a(href="javascript:;" ng-click="deleteComment(comment.CommentId)") Delete
 
-  div
-    h3 New Comment
-    textarea(ng-model="newComment", cols='50', rows='15')
-    p
-      button(ng-click="submitComment()") Submit
-    p {{ addCommentResult }}
-p {{ SubmitResult }}
+//-   div
+//-     p
+//-       button(ng-click="nextComment()") Next
+//-     p
+//-       button(ng-click="preComment()") Pre
+
+//-   div
+//-     h3 New Comment
+//-     textarea(ng-model="newComment", cols='50', rows='15')
+//-     p
+//-       button(ng-click="submitComment()") Submit
+//-     p {{ addCommentResult }}
+
+div#read-post-comment-area(ng-show="commentsCount > 0")
+  h3#read-post-comment-area-title Comments
+  div.read-post-comment-box(ng-repeat='comment in comments')
+    div.read-post-comment-box-user-info
+      span.read-post-comment-box-user-icon
+        img(src='/image/user-icon.png')
+      span.read-post-comment-box-user-name
+        | {{ comment.Username }}
+      span.read-post-comment-box-user-time
+        | {{ comment.Time }}
+    div.read-post-comment-box-hidden(ng-show="comment.IsHidden")
+      | Hidden By Admin
+    div.read-post-comment-box-unhide(ng-show="!comment.IsHidden")
+      | {{ comment.Content }}
+    div.read-post-comment-box-control
+      a.read-post-comment-box-control-edit(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}") Edit
+      a.read-post-comment-box-control-delete(href="javascript:;", ng-click="deleteComment(comment.CommentId)") Delete
+      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="comment.IsHidden") UnHide
+      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="!comment.IsHidden") Hide
+  div#read-post-comment-pagination
+    a#read-post-comment-pagination-pre(href="javascript:;", ng-click="preComment()") Previous
+    a#read-post-comment-pagination-next(href="javascript:;", ng-click="nextComment()") Next
+  
+div#read-post-new-comment
+  h4 Add New Comment
+  div#read-post-add-comment-user-info
+    span#read-post-add-comment-user-icon
+      img(src="/image/user-icon.png")
+    span#read-post-add-comment-user-name
+      | {{ username }}
+    span#read-post-add-comment-user-time
+      | {{ time }}
+  textarea(ng-model="newComment")
+  div#read-post-submit-comment-control
+    a#read-post-submit-comment(href="javascript:;", ng-click="submitComment()") Submit
+    p#read-post-submit-comment-result {{ addCommentResult }}

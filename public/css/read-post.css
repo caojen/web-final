@@ -1,0 +1,237 @@
+#read-post {
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+#read-post table {
+  margin: 0 auto;
+}
+
+#read-post th, #read-post td {
+  text-align: center;
+}
+
+#read-post th {
+  border: 2px black solid;
+}
+
+#read-post-username {
+  width: 15%;
+}
+
+#read-post-time {
+  width: 30%;
+}
+
+#read-post td {
+  border-bottom: 1px #eee solid;
+}
+
+#read-post-title {
+  text-align: center;
+}
+
+#read-post-text {
+  border: 1px rgb(0, 149, 255) dashed;
+  width: 70%;
+  min-height: 300px;
+  margin: 0 auto;
+}
+
+#read-post-comment-area {
+  width: 70%;
+  margin: 0 auto;
+  border: 2px rgb(255, 0, 157) dotted;
+  margin-top: 20px;
+}
+
+#read-post-comment-area-title {
+  color: purple;
+  text-align: center;
+  border-bottom: 1px #eee solid;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+.read-post-comment-box {
+  padding-left: 3px;
+  padding-right: 3px;
+  border-bottom: 1px double black;
+}
+
+.read-post-comment-box-user-info {
+  height: 20px;
+}
+
+.read-post-comment-box-user-icon, .read-post-comment-box-user-icon img {
+  height: 15px;
+  width: 15px;
+}
+
+.read-post-comment-box-user-name {
+  color: purple;
+  margin-right: 20px;
+}
+
+.read-post-comment-box-user-time {
+  color: rgb(43, 120, 4);
+}
+
+.read-post-comment-box-hidden, .read-post-comment-box-unhide {
+  font-size: 16px;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.read-post-comment-box-hidden {
+  color: purple;
+}
+
+.read-post-comment-box-control {
+  text-align: right;
+  padding-bottom: 7px;
+}
+
+.read-post-comment-box-control-edit {
+  color: rgb(0, 136, 255);
+  height: 100px;
+  border-radius: 50px;
+  border: 2px rgb(0, 136, 255) solid;
+  background-color: white;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 3px;
+  transition: 200ms;
+}
+
+.read-post-comment-box-control-edit:hover {
+  color: white;
+  background-color: rgb(0, 136, 255);
+}
+
+.read-post-comment-box-control-delete {
+  color: rgb(255, 0, 0);
+  height: 100px;
+  border-radius: 50px;
+  border: 2px rgb(255, 0, 0) solid;
+  background-color: white;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 3px;
+  transition: 200ms;
+}
+
+.read-post-comment-box-control-delete:hover {
+  color: white;
+  background-color: rgb(255, 0, 0);
+}
+
+.read-post-comment-box-control-hide {
+  color: purple;
+  height: 100px;
+  border-radius: 50px;
+  border: 2px purple solid;
+  background-color: white;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: 200ms;
+}
+
+.read-post-comment-box-control-hide:hover {
+  color: white;
+  background-color: purple;
+}
+
+#read-post-comment-pagination {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#read-post-comment-pagination-pre, #read-post-comment-pagination-next {
+  color: green;
+  height: 100px;
+  border-radius: 50px;
+  border: 2px green solid;
+  background-color: white;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: 200ms;
+}
+
+#read-post-comment-pagination-pre:hover, #read-post-comment-pagination-next:hover {
+  color: white;
+  background-color: green;
+}
+
+#read-post-comment-pagination-pre {
+  margin-right: 5px;
+}
+
+#read-post-comment-pagination-next {
+  margin-left: 5px;
+}
+
+#read-post-new-comment {
+  margin: 0 auto;
+  width: 70%;
+}
+
+#read-post-new-comment textarea {
+  width: 100%;
+  resize: none;
+  padding: 5px;
+  height: 60px;
+  border: 1px green solid;
+  margin-bottom: 4px;
+}
+
+#read-post-add-comment-user-info {
+  margin-bottom: 5px;
+}
+
+#read-post-add-comment-user-icon, #read-post-add-comment-user-icon img {
+  height: 15px;
+  width: 15px;
+}
+
+#read-post-add-comment-user-name {
+  color: rgb(153, 0, 255);
+  margin-right: 20px;
+}
+
+#read-post-add-comment-user-time {
+  color: rgb(255, 0, 0);
+}
+
+#read-post-submit-comment {
+  color: rgb(10, 126, 228);
+  border: 2px rgb(10, 126, 228) solid;
+  height: 100px;
+  border-radius: 50px;
+  padding: 2px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: 200ms;
+}
+
+#read-post-submit-comment:hover {
+  color: white;
+  background-color: rgb(10, 126, 228);
+}
+
+#read-post-submit-comment-control {
+  text-align: right;
+  padding-top: 5px;
+}
+
+#read-post-submit-comment-result {
+  min-height: 30px;
+  color: red
+}
