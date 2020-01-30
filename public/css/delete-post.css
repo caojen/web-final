@@ -33,7 +33,7 @@
 
 #delete-post-control {
   position: fixed;
-  margin: 0 auto;
+  right: 2%;
   bottom: 50px;
   padding: 10px;
   padding-left: 20px;
