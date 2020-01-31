@@ -2,7 +2,7 @@
 @import url('./global-element.css');
 
 /* for classes */
-@import url('./a-link-button.css');
+@import url('./global-class.css');
 @import url('./global-icon.css');
 
 /* specific id-element */

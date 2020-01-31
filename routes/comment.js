@@ -8,8 +8,8 @@ exports.addComment = function (req, res) {
   login_require(username, token)
     .then(() => {
       let db = new sqlite.Database(dbpath);
-      let sql = `insert into Comment (Username, BlogId, Content) values ('${username}', '${id}', '${content}')`;
-      db.run(sql, () => {
+      let sql = `insert into Comment (Username, BlogId, Content) values (?, ?, ?)`;
+      db.run(sql, [username, id, content], () => {
         db.close();
       })
       res.json({ message: 'ok' });
@@ -21,7 +21,7 @@ exports.addComment = function (req, res) {
 
 exports.getComment = function (req, res) {
   let BlogId = req.params.id;
-  let sql = `select * from Comment where BlogId='${BlogId}'`;
+  let sql = `select * from Comment where BlogId=?`;
   let db = new sqlite.Database(dbpath);
 
   let offset = 0;
@@ -37,7 +37,7 @@ exports.getComment = function (req, res) {
     }
   })
 
-  db.all(sql, (err, rows) => {
+  db.all(sql, [BlogId], (err, rows) => {
     let data = [];
 
     for (let i = offset * pageCount; i < ((offset + 1) * pageCount) && i < rows.length; i++) {
@@ -66,12 +66,12 @@ exports.changeCommentStatus = function (req, res) {
 
   blog_permission_require(username, token, BlogId, true)
     .then(() => {
-      let sql_select = `select IsHidden from Comment where CommentId='${CommentId}' and BlogId='${BlogId}'`;
+      let sql_select = `select IsHidden from Comment where CommentId=? and BlogId=?`;
       let db = new sqlite.Database(dbpath);
-      db.all(sql_select, function (err, rows) {
+      db.all(sql_select, [CommentId, BlogId], function (err, rows) {
         let newVal = rows[0].IsHidden == 0 ? 1 : 0;
-        let sql_update = `update Comment set IsHidden='${newVal}' where CommentId='${CommentId}' and BlogId='${BlogId}'`;
-        db.run(sql_update, () => {
+        let sql_update = `update Comment set IsHidden=? where CommentId=? and BlogId=?`;
+        db.run(sql_update, [newVal, CommentId, BlogId], () => {
           db.close();
         })
         res.json({ message: 'ok' });
@@ -89,8 +89,8 @@ exports.deleteComment = function(req, res) {
   delete_comment_permission_require(username, token, BlogId, CommentId)
     .then(() => {
       let db = new sqlite.Database(dbpath);
-      let sql = `delete from Comment where Username='${username}' and BlogId='${BlogId}' and CommentId='${CommentId}'`;
-      db.run(sql, () => {
+      let sql = `delete from Comment where Username=? and BlogId=? and CommentId=?`;
+      db.run(sql, [username, BlogId, CommentId], () => {
         db.close();
       })
       res.json({ message: 'ok' });
@@ -106,8 +106,8 @@ exports.getChangeCommentPageDetail = function(req, res) {
   let CommentId = req.params.commentid;
 
   let db = new sqlite.Database(dbpath);
-  let sql = `select * from Comment where BlogId='${BlogId}' and CommentId='${CommentId}'`;
-  db.all(sql, (err, rows) => {
+  let sql = `select * from Comment where BlogId=? and CommentId=?`;
+  db.all(sql, [BlogId, CommentId], (err, rows) => {
     if(err || rows.length === 0) {
       res.json({ error: 'No Such Comment' });
     } else {
@@ -135,14 +135,14 @@ function delete_comment_permission_require(username, token, BlogId, CommentId) {
           .catch(() => {
             // check if is blog' owner
             let db = new sqlite.Database(dbpath);
-            let sql_checkIsBlogOwner = `select * from BlogTitle where BlogId='${BlogId}' and Username='${username}'`;
-            let sql_checkIsCommentOwner = `select * from Comment where BlogId='${BlogId}' and CommentId='${CommentId}' and Username='${username}'`;
-            db.all(sql_checkIsBlogOwner, (err, rows) => {
+            let sql_checkIsBlogOwner = `select * from BlogTitle where BlogId=? and Username=?`;
+            let sql_checkIsCommentOwner = `select * from Comment where BlogId=? and CommentId=? and Username=?`;
+            db.all(sql_checkIsBlogOwner, [BlogId, username], (err, rows) => {
               if(rows.length > 0) {
                 resolve();
                 db.close();
               } else {
-                db.all(sql_checkIsCommentOwner, (err, rows) => {
+                db.all(sql_checkIsCommentOwner, [BlogId, CommentId, username], (err, rows) => {
                   if(rows.length > 0) {
                     resolve();
                   } else {
@@ -165,14 +165,14 @@ exports.changeComment = function(req, res) {
   login_require(username, token)
     .then(() => {
       let db = new sqlite.Database(dbpath);
-      let sql_checkPermission = `select * from Comment where BlogId='${BlogId}' and CommentId='${CommentId}' and Username='${username}'`;
-      db.all(sql_checkPermission, (err, rows) => {
+      let sql_checkPermission = `select * from Comment where BlogId=? and CommentId=? and Username=?`;
+      db.all(sql_checkPermission, [BlogId, CommentId, username], (err, rows) => {
         if(rows.length == 0) {
           res.json({ error: 'No Such Comment' });
           db.close();
         } else {
-          let sql_update = `update Comment set Content='${comment}', Time=datetime('now', 'localtime') where BlogId='${BlogId}' and CommentId='${CommentId}'`;
-          db.run(sql_update, (err) => {
+          let sql_update = `update Comment set Content=?, Time=datetime('now', 'localtime') where BlogId=? and CommentId=?`;
+          db.run(sql_update, [comment, BlogId, CommentId], (err) => {
             db.close();
           })
           res.json({ message: 'ok' })

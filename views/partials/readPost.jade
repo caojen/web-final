@@ -11,7 +11,7 @@ div#read-post
       td {{post.time}}
 
   h2#read-post-title
-  div#read-post-text
+  div#read-post-text.visiable-div-textarea-text
 
 div#read-post-comment-area(ng-show="commentsCount > 0")
   h3#read-post-comment-area-title Comments
@@ -31,7 +31,7 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
       | {{ comment.Content }}
     div.read-post-comment-box-control(ng-show="username")
       a.read-post-comment-box-control-edit(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}", ng-show="form.username==comment.Username || form.isadmin") Edit
-      a.read-post-comment-box-control-delete(href="javascript:;", ng-click="deleteComment(comment.CommentId)", ng-show="form.username==comment.Username || form.isadmin") Delete
+      a.read-post-comment-box-control-delete(href="javascript:;", ng-click="deleteComment(comment.CommentId)", ng-show="form.username==comment.Username || form.isadmin || form.username==post.username") Delete
       a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="form.isadmin && comment.IsHidden") UnHide
       a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="form.isadmin && !comment.IsHidden") Hide
   div#read-post-comment-pagination

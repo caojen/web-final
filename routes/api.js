@@ -123,8 +123,8 @@ exports.editPost = function (req, res) {
       let sql_content = `update BlogContent set Content=? where BlogId=?`;
 
       let db = new sqlite.Database(dbpath);
-      db.run(sql_content, [title, id]);
-      db.run(sql_title, [text, id]);
+      db.run(sql_content, [text, id]);
+      db.run(sql_title, [title, id]);
 
       res.json({ message: 'ok' });
     })

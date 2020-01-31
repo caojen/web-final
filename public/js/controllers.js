@@ -321,13 +321,13 @@ function RegisterCtrl($scope, $http, $location) {
   let checkValidInput = function(username, password, confirm) {
     return new Promise((resolve, reject) => {
       let res = {};
-      if(!username || !(username.length < 18 && username.length > 5 && /([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|_)+/.test(username))) {
+      if(!username || !(username.length < 18 && username.length > 5 && /^([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|_)+$/.test(username))) {
         res = {
           ...res,
-          username: '6~17 digits, alpha, number, ., _ only' 
+          username: '6~17 digits, alpha, number, _ only' 
         };
       }
-      if(!password || !(password.length < 18 && password.length > 5 && /([a-z]|[A-Z]|[0-9]|.|_)+/.test(password))) {
+      if(!password || !(password.length < 18 && password.length > 5 && /^([a-z]|[A-Z]|[0-9]|.|_)+$/.test(password))) {
         res = {
           ...res,
           password: '6~17 digits, alpha, number, ., _ only'
