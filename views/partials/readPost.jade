@@ -29,16 +29,16 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
     div.read-post-comment-box-unhide(ng-show="!comment.IsHidden", id="read-post-comment-box-unhide-after-{{$index}}")
     div.read-post-comment-box-unhide-test(ng-show="false", id="read-post-comment-box-unhide-begin-{{$index}}")
       | {{ comment.Content }}
-    div.read-post-comment-box-control
-      a.read-post-comment-box-control-edit(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}") Edit
-      a.read-post-comment-box-control-delete(href="javascript:;", ng-click="deleteComment(comment.CommentId)") Delete
-      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="comment.IsHidden") UnHide
-      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="!comment.IsHidden") Hide
+    div.read-post-comment-box-control(ng-show="username")
+      a.read-post-comment-box-control-edit(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}", ng-show="form.username==comment.Username || form.isadmin") Edit
+      a.read-post-comment-box-control-delete(href="javascript:;", ng-click="deleteComment(comment.CommentId)", ng-show="form.username==comment.Username || form.isadmin") Delete
+      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="form.isadmin && comment.IsHidden") UnHide
+      a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="form.isadmin && !comment.IsHidden") Hide
   div#read-post-comment-pagination
     a#read-post-comment-pagination-pre(href="javascript:;", ng-click="getPreComment()") Previous
     a#read-post-comment-pagination-next(href="javascript:;", ng-click="getNextComment()") Next
   
-div#read-post-new-comment
+div#read-post-new-comment(ng-show="username")
   h4 Add New Comment
   div#read-post-add-comment-user-info
     span#read-post-add-comment-user-icon

@@ -1,6 +1,7 @@
 #pagination {
   padding-top: 20px;
   padding-bottom: 10px;
+  text-align: right;
 }
 
 #pagination-next, #pagination-previous {

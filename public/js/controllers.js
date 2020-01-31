@@ -28,7 +28,6 @@ function IndexCtrl($scope, $http) {
         $scope.offset = pre_offset;
       } else {
         $scope.posts = data.data.sort((a, b) => a.BlogId-b.BlogId);
-        console.log($scope.posts);
         $scope.posts.forEach((value, index) => {
           $scope.posts[index].Title = decodeURI(value.Title);
         })
@@ -79,6 +78,7 @@ function IndexCtrl($scope, $http) {
     $scope.form = {};
     setCookie('username', 'deleted', -1);
     setCookie('token', 'deleted', -1);
+    setCookie('isadmin', 'deleted', -1);
   }
 
   $scope.changeHidePost = function(BlogId) {
@@ -120,8 +120,7 @@ function AddPostCtrl($scope, $http, $location) {
         text: encodeURI($scope.form.text),
       }).
         success(function(data) {
-          // $location.path('/');
-          console.log(data);
+          $location.path('/');
         });
     }
   };
@@ -129,9 +128,13 @@ function AddPostCtrl($scope, $http, $location) {
 
 function ReadPostCtrl($scope, $http, $routeParams) {
   $scope.username = getCookie('username');
-  $scope.isadmin = getCookie('isadmin');
-  
+  $scope.isadmin = parseInt(getCookie('isadmin'));
   $scope.time = getTime();
+
+  $scope.form = {
+    username: $scope.username,
+    isadmin: $scope.isadmin,
+  }
 
   setInterval(() => {
     $scope.time = getTime();
@@ -214,7 +217,8 @@ function ReadPostCtrl($scope, $http, $routeParams) {
         token: getCookie('token'),
       },
     })
-      .success(() => {
+      .success((data) => {
+        console.log(data);
         getAllComments();
       })
   }
@@ -335,6 +339,7 @@ function RegisterCtrl($scope, $http, $location) {
           confirm: 'The input is not the same'
         }
       }
+      console.log(res);
       if(Object.keys(res).length === 0) {
         resolve();
       } else {

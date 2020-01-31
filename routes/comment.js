@@ -134,7 +134,7 @@ function delete_comment_permission_require(username, token, BlogId, CommentId) {
           .then(() => { resolve() })
           .catch(() => {
             // check if is blog' owner
-            let db = new sqlite.Database();
+            let db = new sqlite.Database(dbpath);
             let sql_checkIsBlogOwner = `select * from BlogTitle where BlogId='${BlogId}' and Username='${username}'`;
             let sql_checkIsCommentOwner = `select * from Comment where BlogId='${BlogId}' and CommentId='${CommentId}' and Username='${username}'`;
             db.all(sql_checkIsBlogOwner, (err, rows) => {
