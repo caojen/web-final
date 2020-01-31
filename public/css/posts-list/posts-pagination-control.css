@@ -1,8 +1,6 @@
 #pagination {
-  position: fixed;
-  bottom: 10%;
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 #pagination-next, #pagination-previous {
