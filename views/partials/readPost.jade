@@ -26,7 +26,8 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
         img.static-icons(src="/image/static-icons/time_green.png")
     div.read-post-comment-box-hidden(ng-show="comment.IsHidden")
       | Hidden By Admin
-    div.read-post-comment-box-unhide(ng-show="!comment.IsHidden")
+    div.read-post-comment-box-unhide(ng-show="!comment.IsHidden", id="read-post-comment-box-unhide-after-{{$index}}")
+    div.read-post-comment-box-unhide-test(ng-show="false", id="read-post-comment-box-unhide-begin-{{$index}}")
       | {{ comment.Content }}
     div.read-post-comment-box-control
       a.read-post-comment-box-control-edit(href="/comment/edit/{{post.BlogId}}/{{comment.CommentId}}") Edit

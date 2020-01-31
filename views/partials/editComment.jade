@@ -16,8 +16,9 @@ div#edit-comment
         span(ng-show="!IsHidden") Show
   div#last-comment
     h4#last-comment-title Last Comment
-      p#last-comment-text {{ Comment }}
+      p#last-comment-text
   div#new-comment
     h4#new-comment-title New Comment
     textarea(ng-model="newComment")
+    a#new-comment-back(href="javascript:;", ng-click="editCommentBack()") Back
     a#new-comment-submit(href="javascript:;", ng-click="SubmitComment()") Submit

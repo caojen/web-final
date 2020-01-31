@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-const PageCount = 20;
+const PageCount = 10;
 
 function getTime() {
   let date = new Date();
@@ -144,12 +144,18 @@ function ReadPostCtrl($scope, $http, $routeParams) {
     $http.get('/api/comments/' + $routeParams.id + '?pageCount=' + commentPageCount + '&offset=' + $scope.commentOffset).
       success(function(data) {
         $scope.commentsCount = data.count;
-        $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
-        // 这里将comments的回车换成br,用jquery的class-select
+        $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);      
       })
-
   }
+  $scope.preComment = {};
 
+  setInterval(() => {
+    if($scope.preComment !== $scope.comments) {
+      $scope.preComment = $scope.comments;
+      formatClassElement('read-post-comment-box-unhide', 'begin', 'after', 0, $scope.comments.length);
+    }
+  }, 200);
+  
   getAllComments();
   $scope.newComment = '';
   $scope.addCommentResult = '';
@@ -381,7 +387,8 @@ function EditCommentCtrl($scope, $http, $location, $routeParams) {
         $scope.Comment = data.Comment;
         $scope.Time = data.Time;
         $scope.IsHidden = data.IsHidden;
-        $scope.newComment = data.Comment;
+        $scope.newComment = decodeURI(data.Comment);
+        formatDecodedString('last-comment-text', $scope.Comment);
       }
     })
   
@@ -390,7 +397,7 @@ function EditCommentCtrl($scope, $http, $location, $routeParams) {
       $http.post(`/api/comment/${$scope.BlogId}/${$scope.CommentId}`, {
         username: getCookie('username'),
         token: getCookie('token'),
-        comment: $scope.newComment,
+        comment: encodeURI($scope.newComment),
       })
         .success(data => {
           if(data.error) {
@@ -402,5 +409,9 @@ function EditCommentCtrl($scope, $http, $location, $routeParams) {
     } else {
       $scope.SubmitResult = 'Please Enter Some Comments';
     }
+  }
+
+  $scope.editCommentBack = function() {
+    $location.url(`/readPost/${$scope.BlogId}`);
   }
 }

@@ -23,3 +23,22 @@ function formatDecodedString(id, string) {
   new_string = decodeURI(new_string);
   $(`#${id}`).html(new_string);
 }
+
+/**
+ * to format elements' html with the same _class 
+ */
+function formatClassElement(prefix, from, to, from_index, to_index) {
+  let f = `${prefix}-${from}-`;
+  let t = `${prefix}-${to}-`;
+  for(let i = from_index; i<to_index; i++) {
+    let ff = `#${f}${i}`;
+    let tt = `#${t}${i}`;
+    console.log(ff, tt);
+    let ff_html = $(ff).html();
+    Object.keys(map1).forEach(value => {
+      let exp = map1[value];
+      ff_html = ff_html.replace(exp, map2[value]);
+      $(tt).html(decodeURI(ff_html));
+    })
+  }
+}
