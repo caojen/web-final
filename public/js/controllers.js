@@ -93,7 +93,6 @@ function IndexCtrl($scope, $http) {
 }
 
 function AddPostCtrl($scope, $http, $location) {
-  let date = new Date();
   $scope.form = {
     username: getCookie('username'),
     time: getTime(),
@@ -109,7 +108,8 @@ function AddPostCtrl($scope, $http, $location) {
       $http.post('/api/post', { 
         username: getCookie('username'),
         token: getCookie('token'),
-        ...$scope.form,
+        title: encodeURI($scope.form.title),
+        text: encodeURI($scope.form.text),
       }).
         success(function(data) {
           $location.path('/');
@@ -131,9 +131,11 @@ function ReadPostCtrl($scope, $http, $routeParams) {
 
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
-      $scope.post = { ...data, BlogId: $routeParams.id }
+      $scope.post = { ...data, BlogId: $routeParams.id };
+      formatDecodedString('read-post-title', $scope.post.title);
+      formatDecodedString('read-post-text', $scope.post.text);
     });
-  
+
   const commentPageCount = 20;
   $scope.commentOffset = 0;
 
@@ -143,6 +145,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       success(function(data) {
         $scope.commentsCount = data.count;
         $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
+        // 这里将comments的回车换成br,用jquery的class-select
       })
 
   }
@@ -155,7 +158,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       $http.put('/api/comment/' + $routeParams.id, {
         username: getCookie('username'),
         token: getCookie('token'),
-        content: $scope.newComment,
+        content: encodeURI($scope.newComment),
       }).
         success(data => {
           if(data.error) {
@@ -217,13 +220,19 @@ function EditPostCtrl($scope, $http, $location, $routeParams) {
   $scope.form = {};
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
-      $scope.form = data;
+      $scope.form = { 
+        ...data,
+        title: decodeURI(data.title),
+        text: decodeURI(data.text),
+      };
     });
 
   $scope.editPost = function () {
     if(!!$scope.form.title && !!$scope.form.text) {
       $http.put('/api/post/' + $routeParams.id, {
         ...$scope.form,
+        text: encodeURI($scope.form.text),
+        title: encodeURI($scope.form.title),
         username: getCookie('username'),
         token: getCookie('token'),
       }).
@@ -237,8 +246,9 @@ function EditPostCtrl($scope, $http, $location, $routeParams) {
 function DeletePostCtrl($scope, $http, $location, $routeParams) {
   $http.get('/api/post/' + $routeParams.id).
     success(function(data) {
-      console.log(data);
       $scope.post = data;
+      formatDecodedString('delete-post-title', data.title)
+      formatDecodedString('delete-post-text', data.text);
     });
   $scope.deleteResult = '';
   $scope.deletePost = function () {

@@ -12,7 +12,7 @@ div#edit-post
   
   input#edit-post-title(ng-model='form.title', placeholder="Title")
   p#edit-post-body
-    textarea(ng-model='form.text')
+    textarea#edit-post-body-text(ng-model='form.text')
   p
     a#edit-post-submit(href="javascript:;", ng-click='editPost()') Submit Post
     a#edit-post-back(href='/') Back
