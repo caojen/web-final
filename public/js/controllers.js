@@ -12,6 +12,7 @@ function getTime() {
 function IndexCtrl($scope, $http) {
   $scope.offset = 1;
   $scope.count = 0;
+  $scope.totalPage = 0;
   $scope.getPosts = function(offset) {
     if(offset < 0) {
       offset = 1;
@@ -27,10 +28,17 @@ function IndexCtrl($scope, $http) {
         $scope.offset = pre_offset;
       } else {
         $scope.posts = data.data.sort((a, b) => a.BlogId-b.BlogId);
+        console.log($scope.posts);
+        $scope.posts.forEach((value, index) => {
+          $scope.posts[index].Title = decodeURI(value.Title);
+        })
         $scope.count = data.count;
 
         $scope.toPage = $scope.offset;
         $scope.totalPage = Math.ceil(data.count / PageCount);
+      }
+      if($scope.totalPage === 0) {
+        $scope.toPage = 0;
       }
     });
   }
@@ -112,7 +120,8 @@ function AddPostCtrl($scope, $http, $location) {
         text: encodeURI($scope.form.text),
       }).
         success(function(data) {
-          $location.path('/');
+          // $location.path('/');
+          console.log(data);
         });
     }
   };
@@ -145,7 +154,6 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       success(function(data) {
         $scope.commentsCount = data.count;
         $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
-        // formatClassElement('read-post-comment-box-unhide', 'begin', 'after', 0, $scope.comments.length);
       })
   }
   $scope.preComment = {};
