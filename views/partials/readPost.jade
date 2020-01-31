@@ -35,8 +35,8 @@ div#read-post-comment-area(ng-show="commentsCount > 0")
       a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="comment.IsHidden") UnHide
       a.read-post-comment-box-control-hide(href="javascript:;", ng-click="changeHideStatus(comment.CommentId)", ng-show="!comment.IsHidden") Hide
   div#read-post-comment-pagination
-    a#read-post-comment-pagination-pre(href="javascript:;", ng-click="preComment()") Previous
-    a#read-post-comment-pagination-next(href="javascript:;", ng-click="nextComment()") Next
+    a#read-post-comment-pagination-pre(href="javascript:;", ng-click="getPreComment()") Previous
+    a#read-post-comment-pagination-next(href="javascript:;", ng-click="getNextComment()") Next
   
 div#read-post-new-comment
   h4 Add New Comment

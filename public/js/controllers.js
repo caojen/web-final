@@ -136,7 +136,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       formatDecodedString('read-post-text', $scope.post.text);
     });
 
-  const commentPageCount = 20;
+  const commentPageCount = 12;
   $scope.commentOffset = 0;
 
   let getAllComments = function() {
@@ -144,7 +144,8 @@ function ReadPostCtrl($scope, $http, $routeParams) {
     $http.get('/api/comments/' + $routeParams.id + '?pageCount=' + commentPageCount + '&offset=' + $scope.commentOffset).
       success(function(data) {
         $scope.commentsCount = data.count;
-        $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);      
+        $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
+        // formatClassElement('read-post-comment-box-unhide', 'begin', 'after', 0, $scope.comments.length);
       })
   }
   $scope.preComment = {};
@@ -152,9 +153,13 @@ function ReadPostCtrl($scope, $http, $routeParams) {
   setInterval(() => {
     if($scope.preComment !== $scope.comments) {
       $scope.preComment = $scope.comments;
-      formatClassElement('read-post-comment-box-unhide', 'begin', 'after', 0, $scope.comments.length);
+      try {
+        formatClassElement('read-post-comment-box-unhide', 'begin', 'after', 0, $scope.comments.length);
+      } catch(err) {
+
+      }
     }
-  }, 200);
+  }, 10);
   
   getAllComments();
   $scope.newComment = '';
@@ -206,20 +211,19 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       })
   }
 
-  $scope.nextComment = function() {
-    if($scope.comments.length) {
+  $scope.getNextComment = function() {
+    if($scope.comments.length && $scope.comments.length === commentPageCount) {
       $scope.commentOffset++;
       getAllComments();
     }
   }
 
-  $scope.preComment = function() {
+  $scope.getPreComment = function() {
     if($scope.commentOffset) {
       $scope.commentOffset--;
       getAllComments();
     }
   }
-
 }
 
 function EditPostCtrl($scope, $http, $location, $routeParams) {

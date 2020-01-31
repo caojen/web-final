@@ -17,7 +17,11 @@ function formatDecodedString(id, string) {
   let new_string = string;
   Object.keys(map1).forEach(value => {
     let exp = map1[value];
-    new_string = string.replace(exp, map2[value]);
+    try {
+      new_string = string.replace(exp, map2[value]);
+    } catch(err) {
+
+    }
   });
 
   new_string = decodeURI(new_string);
@@ -33,7 +37,6 @@ function formatClassElement(prefix, from, to, from_index, to_index) {
   for(let i = from_index; i<to_index; i++) {
     let ff = `#${f}${i}`;
     let tt = `#${t}${i}`;
-    console.log(ff, tt);
     let ff_html = $(ff).html();
     Object.keys(map1).forEach(value => {
       let exp = map1[value];
