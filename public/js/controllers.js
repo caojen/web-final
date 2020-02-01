@@ -310,6 +310,10 @@ function LoginCtrl($scope, $http, $location) {
     $http.post('/user/login', $scope.form).
       success(function(data) {
         if(!data.error) {
+          setCookie('username', 'deleted', -1);
+          setCookie('token', 'deleted', -1);
+          setCookie('token', 'deleted', -1);
+          
           setCookie('username', data.username);
           setCookie('token', data.token);
           setCookie('isadmin', data.IsAdmin);

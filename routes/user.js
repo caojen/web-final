@@ -27,29 +27,33 @@ exports.logout = function (req, res) {
 
 exports.register = function (req, res) {
     let { username, password } = req.body;
-    let db = new sqlite.Database('sqlite.db');
-    let sql_checkUsernameIsExists = `select * from User where Username='${username}'`;
-    let sql_updateDatabase = `insert into User (Username, Password) Values ('${username}', '${password}')`;
-    db.all(sql_checkUsernameIsExists, function(err, rows) {
-        if(err) {
-            res.json({ error: 'Server Error' });
-            db.close();
-        } else {
-            if(rows.length > 0) {
-                res.json({ error: 'Username Exists' });
+    if(username.length > 17 || username.length < 6 || password.length > 17 || password.length < 6) {
+        res.json({ error: 'Not_Valid' });
+    } else {
+        let db = new sqlite.Database('sqlite.db');
+        let sql_checkUsernameIsExists = `select * from User where Username=?`;
+        let sql_updateDatabase = `insert into User (Username, Password) Values (?, ?)`;
+        db.all(sql_checkUsernameIsExists, [username], function(err, rows) {
+            if(err) {
+                res.json({ error: 'Server Error' });
                 db.close();
             } else {
-                db.run(sql_updateDatabase, function(err, rows) {
-                    if(err) {
-                        res.json({ error: 'Server Error' });
-                    } else {
-                        res.json({ message: 'ok' });
-                    }
+                if(rows.length > 0) {
+                    res.json({ error: 'Username Exists' });
                     db.close();
-                })
+                } else {
+                    db.run(sql_updateDatabase, [username, password], function(err, rows) {
+                        if(err) {
+                            res.json({ error: 'Server Error' });
+                        } else {
+                            res.json({ message: 'ok' });
+                        }
+                        db.close();
+                    })
+                }
             }
-        }
-    })
+        })
+    }
 }
 
 
