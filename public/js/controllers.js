@@ -148,7 +148,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       formatDecodedString('read-post-text', $scope.post.text);
     });
 
-  const commentPageCount = 12;
+  const commentPageCount = 6;
   $scope.commentOffset = 0;
 
   let getAllComments = function() {
@@ -156,6 +156,7 @@ function ReadPostCtrl($scope, $http, $routeParams) {
     $http.get('/api/comments/' + $routeParams.id + '?pageCount=' + commentPageCount + '&offset=' + $scope.commentOffset).
       success(function(data) {
         $scope.commentsCount = data.count;
+        
         $scope.comments = data.data.sort((a, b) => a.CommentId - b.CommentId);
       })
   }
@@ -188,8 +189,16 @@ function ReadPostCtrl($scope, $http, $routeParams) {
           } else {
             $scope.newComment = '';
             $scope.addCommentResult = '';
-            getAllComments();
+            let count = $scope.commentsCount + 1;
+            let offset = $scope.commentOffset;
+            if(count % commentPageCount === 0) {
+              offset = count / commentPageCount;
+            } else {
+              offset = count / commentPageCount + 1;
+            }
+            $scope.commentOffset = offset - 1;
           }
+          getAllComments();
         });
     } else {
       $scope.addCommentResult = 'Please Enter Some Comments';
@@ -218,7 +227,6 @@ function ReadPostCtrl($scope, $http, $routeParams) {
       },
     })
       .success((data) => {
-        console.log(data);
         getAllComments();
       })
   }

@@ -89,8 +89,8 @@ exports.deleteComment = function(req, res) {
   delete_comment_permission_require(username, token, BlogId, CommentId)
     .then(() => {
       let db = new sqlite.Database(dbpath);
-      let sql = `delete from Comment where Username=? and BlogId=? and CommentId=?`;
-      db.run(sql, [username, BlogId, CommentId], () => {
+      let sql = `delete from Comment where BlogId=? and CommentId=?`;
+      db.run(sql, [BlogId, CommentId], () => {
         db.close();
       })
       res.json({ message: 'ok' });
@@ -165,8 +165,8 @@ exports.changeComment = function(req, res) {
   login_require(username, token)
     .then(() => {
       let db = new sqlite.Database(dbpath);
-      let sql_checkPermission = `select * from Comment where BlogId=? and CommentId=? and Username=?`;
-      db.all(sql_checkPermission, [BlogId, CommentId, username], (err, rows) => {
+      let sql_checkPermission = `select * from Comment where BlogId=? and CommentId=?`;
+      db.all(sql_checkPermission, [BlogId, CommentId], (err, rows) => {
         if(rows.length == 0) {
           res.json({ error: 'No Such Comment' });
           db.close();
