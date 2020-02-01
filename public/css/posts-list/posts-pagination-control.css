@@ -1,7 +1,7 @@
 #pagination {
   padding-top: 20px;
   padding-bottom: 10px;
-  text-align: right;
+  text-align: left;
 }
 
 #pagination-next, #pagination-previous {

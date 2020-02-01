@@ -33,7 +33,7 @@ function IndexCtrl($scope, $http) {
         })
         $scope.count = data.count;
 
-        $scope.toPage = $scope.offset;
+        $scope.toPage = parseInt($scope.offset);
         $scope.totalPage = Math.ceil(data.count / PageCount);
       }
       if($scope.totalPage === 0) {
@@ -313,7 +313,7 @@ function LoginCtrl($scope, $http, $location) {
           setCookie('username', 'deleted', -1);
           setCookie('token', 'deleted', -1);
           setCookie('token', 'deleted', -1);
-          
+
           setCookie('username', data.username);
           setCookie('token', data.token);
           setCookie('isadmin', data.IsAdmin);
